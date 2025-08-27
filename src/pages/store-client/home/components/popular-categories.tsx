@@ -18,6 +18,7 @@ interface Product {
   product_name: string;
   discount_price: string;
   product_image: string;
+  product_id: number;
 }
 
 export function PopularCategories({ storeId }: { storeId: number }) {
@@ -87,6 +88,7 @@ export function PopularCategories({ storeId }: { storeId: number }) {
             {productsByCategory[cat.id]?.map((item, index) => (
               <Card2
                 key={index}
+                id={item.product_id}
                 logo={item.product_image}
                 star={item.star}
                 title={item?.product_name}

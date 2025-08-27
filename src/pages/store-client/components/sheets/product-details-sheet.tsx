@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { ShoppingCart, Star } from 'lucide-react';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { Badge } from '@/components/ui/badge';
@@ -22,28 +24,16 @@ const items = [
       </Badge>
     ),
   },
-  {
-    text: 'SKU',
-    info: (
-      <span className="text-xs font-medium text-foreground">SH-001-BLK-42</span>
-    ),
-  },
+  
   {
     text: 'Category',
-    info: <span className="text-xs font-medium text-foreground">Sneakers</span>,
+    info: <span className="text-xs font-medium text-foreground">Speaker</span>,
   },
   {
     text: 'Rating',
     info: null, // rating uchun alohida component bor
   },
-  {
-    text: 'More Info',
-    info: (
-      <span className="text-xs font-normal text-foreground">
-        10g powder, powder measure & water dispensing bottle (empty)
-      </span>
-    ),
-  },
+  
 ];
 
 interface StoreClientProductDetailsSheetProps {
@@ -73,6 +63,20 @@ export function Rating({ rating, outOf = 5 }: RatingProps) {
 
   return <div className="flex items-center gap-1">{stars}</div>;
 }
+interface ProductDetails {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  original_price?: number;
+  rating: number;
+  stock: string;
+  sku: string;
+  category: string;
+  image: string;
+  brand_logo: string;
+}
+
 
 export function StoreClientProductDetailsSheet({
   open,
@@ -80,6 +84,51 @@ export function StoreClientProductDetailsSheet({
   productId,
   addToCart,
 }: StoreClientProductDetailsSheetProps) {
+    const [product, setProduct] = useState<ProductDetails | null>(null);
+   const [loading, setLoading] = useState(false);
+     useEffect(() => {
+    const fetchProductDetails = async () => {
+      if (!productId) return;
+
+      setLoading(true);
+      try {
+        const res = await axios.post(
+          'https://grimanisystems.salesleader.in/api/v1/product-details',
+          { product_id: Number(productId) },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('auth-token')}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        const data = res.data?.Response?.details;
+        console.log('Fetched product details:', data);
+        setProduct({
+          id: data.id,
+          title: data.product_name,
+
+          description: data.long_description,
+          price: data.price,
+          original_price: data.discount_price,
+          rating: data.rating,
+          stock: data.stock,
+          sku: data.sku,
+          category: data.category_name,
+          image: data.product_image,
+          brand_logo: data.brand_logo,
+        });
+      } catch (err) {
+        console.error('Failed to fetch product details:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (open) {
+      fetchProductDetails();
+    }
+  }, [productId, open]);
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="sm:w-[520px] sm:max-w-none inset-5 start-auto h-auto rounded-lg p-0 [&_[data-slot=sheet-close]]:top-4.5 [&_[data-slot=sheet-close]]:end-5">
@@ -98,18 +147,18 @@ export function StoreClientProductDetailsSheet({
                   save 40%
                 </Badge>
                 <img
-                  src={toAbsoluteUrl('/media/store/client/600x600/1.png')}
+                  src={product?.image}
                   className="size-80"
                   alt="image"
                 />
                 <Card className="absolute items-center justify-center bg-light w-[75px] h-[45px] overflow-hidden rounded-sm bottom-4 right-4">
                   <img
-                    src={toAbsoluteUrl('/media/brand-logos/nike-light.svg')}
+                    src="https://grimanisystems.com/wp-content/uploads/2025/05/GS_2-scaled.png"
                     className="dark:hidden"
                     alt="image"
                   />
                   <img
-                    src={toAbsoluteUrl('/media/brand-logos/nike-dark.svg')}
+                    src="https://grimanisystems.com/wp-content/uploads/2025/05/GS_2-scaled.png"
                     className="hidden dark:block"
                     alt="image"
                   />
@@ -117,16 +166,11 @@ export function StoreClientProductDetailsSheet({
               </Card>
 
               <span className="text-base font-medium text-mono">
-                Cloud Shift Lightweight Runner Pro Edition
+               {product?.title}
               </span>
-              <span className="text-sm font-normal text-foreground block mb-7">
-                Lightweight and stylish, these sneakers offer all-day comfort
-                with <br />
-                breathable mesh, cushioned soles, and a durable grip. Perfect
-                for <br />
-                casual wear, workouts, or daily adventures. Available in
-                multiple colors and sizes.
-              </span>
+              <div dangerouslySetInnerHTML={{ __html: product?.description ?? '' }} className="text-sm font-normal text-foreground block mb-7"/>    
+           
+              
 
               <div className="flex flex-col gap-2.5 lg:mb-11">
                 {items.map((item, index) => (
@@ -147,10 +191,10 @@ export function StoreClientProductDetailsSheet({
 
               <div className="flex items-center justify-end gap-2">
                 <span className="text-base font-normal text-secondary-foreground line-through">
-                  $140.00
+                  {product?.price}
                 </span>
 
-                <span className="text-lg font-medium text-mono">$99.00</span>
+                <span className="text-lg font-medium text-mono">${product?.original_price}</span>
               </div>
             </CardContent>
           </ScrollArea>

@@ -12,9 +12,10 @@ interface ICard2Props {
   total: string;
   star: string;
   label?: string;
+  id?: number
 }
 
-export function Card2({ badge, logo, title, total, star, label }: ICard2Props) {
+export function Card2({ badge, logo, title, total, star, label, id }: ICard2Props) {
 
   const { showCartSheet, showProductDetailsSheet } = useStoreClient();
 
@@ -34,7 +35,7 @@ export function Card2({ badge, logo, title, total, star, label }: ICard2Props) {
             )}
 
             <img
-              onClick={() => showProductDetailsSheet('productid')}
+              onClick={() => showProductDetailsSheet(id !== undefined ? String(id) : 'productid')}
               src={logo}
               className="h-[180px] shrink-0 cursor-pointer"
               alt="image"
@@ -42,7 +43,7 @@ export function Card2({ badge, logo, title, total, star, label }: ICard2Props) {
           </Card>
 
           <div
-            onClick={() => showProductDetailsSheet('productid')}
+           onClick={() => showProductDetailsSheet(id !== undefined ? String(id) : 'productid')}
             className="hover:text-primary text-sm font-medium text-mono px-2.5 leading-5.5 block cursor-pointer"
           >
             {title}

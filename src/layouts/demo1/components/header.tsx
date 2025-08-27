@@ -58,11 +58,14 @@ export function Header() {
     >
       <Container className="flex justify-between items-stretch lg:gap-4">
         {/* HeaderLogo */}
-        <div className="flex gap-1 lg:hidden items-center gap-2.5">
+
+        <div className="flex gap-1  items-center gap-2.5">
+          
           <Link to="/" className="shrink-0">
+          
             <img
-              src={toAbsoluteUrl('/media/app/mini-logo.svg')}
-              className="h-[25px] w-full"
+              src="https://grimanisystems.com/wp-content/uploads/2025/05/GS_2-scaled.png"
+              className="h-[50px] w-full"
               alt="mini-logo"
             />
           </Link>
