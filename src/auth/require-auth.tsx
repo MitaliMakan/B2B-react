@@ -1,20 +1,26 @@
-import { useAuth } from './auth-provider';
-import { ScreenLoader } from '@/components/common/screen-loader';
-import { Outlet } from 'react-router';
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { ScreenLoader } from "@/components/common/screen-loader";
+import { useAuth } from "@/auth/auth-provider";
 
-/**
- * Component to protect routes that require authentication.
- * Since we've simplified the auth system, this just checks if user is logged in.
- */
 export const RequireAuth = () => {
-	const { isLoading, isAuthenticated } = useAuth();
+  const { token, isLoading } = useAuth();
+  const location = useLocation();
 
-	// Show screen loader while checking auth status
-	if (isLoading) {
-		return <ScreenLoader />;
-	}
+  // While loading from localStorage
+  if (isLoading) {
+    return <ScreenLoader />;
+  }
 
-	// For demo purposes, we allow access even if not authenticated
-	// In a real app, you'd redirect to login page or show login prompt
-	return <Outlet />;
+  // Redirect if not authenticated
+  if (!token) {
+    return (
+      <Navigate
+        to={`/auth/signin?next=${encodeURIComponent(location.pathname)}`}
+        replace
+      />
+    );
+  }
+
+  // Authenticated → render child routes
+  return <Outlet />;
 };

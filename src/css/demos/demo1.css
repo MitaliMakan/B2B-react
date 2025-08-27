@@ -53,6 +53,13 @@
       display: none;
     }
 
+    .demo1.sidebar-fixed .wrapper {
+      padding-inline-start: var(--sidebar-width) !important;
+    }
+
+    .demo1.sidebar-fixed.header-fixed .header {
+      inset-inline-start: var(--sidebar-width) !important;
+    }
 
     .demo1.sidebar-fixed.header-fixed .wrapper {
       padding-top: var(--header-height);

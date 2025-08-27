@@ -1,4 +1,4 @@
-import { RouteObject } from 'react-router-dom';
+import { RouteObject, Navigate } from 'react-router-dom';
 import { BrandedLayout } from './layouts/branded';
 import { ClassicLayout } from './layouts/classic';
 import { CallbackPage } from './pages/callback-page';
@@ -18,8 +18,12 @@ export const authRoutes: RouteObject[] = [
     element: <BrandedLayout />,
     children: [
       {
-        path: 'signin',
+        index: true,
         element: <SignInPage />,
+      },
+      {
+        path: 'signin',
+           element: <SignInPage />,
       },
       {
         path: 'signup',

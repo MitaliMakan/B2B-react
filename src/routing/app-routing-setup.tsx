@@ -1,9 +1,8 @@
 import { AuthRouting } from '@/auth/auth-routing';
-import { SignInPage } from '@/auth/pages/signin-page';
-import { SignUpPage } from '@/auth/pages/signup-page';
 import { RequireAuth } from '@/auth/require-auth';
 import { ErrorRouting } from '@/errors/error-routing';
 import { Demo1Layout } from '@/layouts/demo1/layout';
+import { useAuth } from '@/auth/auth-provider';
 import {
   AccountActivityPage,
   AccountAllowedIPAddressesPage,
@@ -101,7 +100,7 @@ export function AppRoutingSetup() {
     <Routes>
       <Route element={<RequireAuth />}>
         <Route element={<Demo1Layout />}>
-          <Route path="/" element={<SignUpPage />} />
+          <Route path="/" element={<DefaultPage />} />
           <Route path="/dark-sidebar" element={<Demo1DarkSidebarPage />} />
           <Route
             path="/public-profile/profiles/default/"
@@ -341,7 +340,7 @@ export function AppRoutingSetup() {
             path="/auth/account-deactivated"
             element={<AuthAccountDeactivatedPage />}
           />
-          <Route path="/store-client/home" element={<StoreClientPage />} />
+          <Route path="/home" element={<StoreClientPage />} />
           <Route
             path="/store-client/search-results-grid"
             element={<SearchResultsGridPage />}
@@ -384,9 +383,11 @@ export function AppRoutingSetup() {
           <Route path="/auth/get-started" element={<AccountGetStartedPage />} />
         </Route>
       </Route>
-      <Route path="error/*" element={<ErrorRouting />} />
-      <Route path="auth/*" element={<AuthRouting />} />
-      <Route path="*" element={<Navigate to="/error/404" />} />
+  <Route path="signin" element={<Navigate to="/auth/signin" replace />} />
+  <Route path="signin" element={<Navigate to="/auth/signin" replace />} />
+  <Route path="error/*" element={<ErrorRouting />} />
+  <Route path="auth/*" element={<AuthRouting />} />
+  <Route path="*" element={<Navigate to="/error/404" />} />
     </Routes>
   );
 }

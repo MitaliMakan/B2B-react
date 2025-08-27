@@ -57,14 +57,14 @@ import {
 import { type MenuConfig } from './types';
 
 export const MENU_SIDEBAR: MenuConfig = [
-  // {
-  //   title: 'Dashboards',
-  //   icon: LayoutGrid,
-  //   children: [
-  //     { title: 'Light Sidebar', path: '/' },
-  //     { title: 'Dark Sidebar', path: '/dark-sidebar' },
-  //   ],
-  // },
+  {
+    title: 'Dashboards',
+    icon: LayoutGrid,
+    children: [
+      { title: 'Light Sidebar', path: '/' },
+      { title: 'Dark Sidebar', path: '/dark-sidebar' },
+    ],
+  },
   { heading: 'User' },
   {
     title: 'Public Profile',
@@ -355,44 +355,44 @@ export const MENU_SIDEBAR: MenuConfig = [
       { title: 'Order Receipt', path: '/store-client/order-receipt' },
     ],
   },
-  // {
-  //   title: 'Store - Admin',
-  //   icon: Bolt,
-  //   disabled: true,
-  //   children: [
-  //     { title: 'Dashboard', path: '/store-admin/dashboard' },
-  //     {
-  //       title: 'Inventory',
-  //       children: [
-  //         {
-  //           title: 'All Products',
-  //           path: '/store-admin/inventory/all-products',
-  //         },
-  //         {
-  //           title: 'Current Stock',
-  //           path: '/store-admin/inventory/current-stock',
-  //         },
-  //         {
-  //           title: 'Inbound Stock',
-  //           path: '/store-admin/inventory/inbound-stock',
-  //         },
-  //         {
-  //           title: 'Outbound Stock',
-  //           path: '/store-admin/inventory/outbound-stock',
-  //         },
-  //         {
-  //           title: 'Stock Planner',
-  //           path: '/store-admin/inventory/stock-planner',
-  //         },
-  //         { title: 'Track Shipping', path: '/' },
-  //         { title: 'Create Shipping Label', path: '/' },
-  //       ],
-  //     },
-  //   ],
-  // },
-  // { title: 'Store - Services', icon: Codepen, disabled: true },
-  // { title: 'AI Promt', icon: Theater, disabled: true },
-  // { title: 'Invoice Generator', icon: ScrollText, disabled: true },
+  {
+    title: 'Store - Admin',
+    icon: Bolt,
+    disabled: true,
+    children: [
+      { title: 'Dashboard', path: '/store-admin/dashboard' },
+      {
+        title: 'Inventory',
+        children: [
+          {
+            title: 'All Products',
+            path: '/store-admin/inventory/all-products',
+          },
+          {
+            title: 'Current Stock',
+            path: '/store-admin/inventory/current-stock',
+          },
+          {
+            title: 'Inbound Stock',
+            path: '/store-admin/inventory/inbound-stock',
+          },
+          {
+            title: 'Outbound Stock',
+            path: '/store-admin/inventory/outbound-stock',
+          },
+          {
+            title: 'Stock Planner',
+            path: '/store-admin/inventory/stock-planner',
+          },
+          { title: 'Track Shipping', path: '/' },
+          { title: 'Create Shipping Label', path: '/' },
+        ],
+      },
+    ],
+  },
+  { title: 'Store - Services', icon: Codepen, disabled: true },
+  { title: 'AI Promt', icon: Theater, disabled: true },
+  { title: 'Invoice Generator', icon: ScrollText, disabled: true },
 ];
 
 export const MENU_SIDEBAR_CUSTOM: MenuConfig = [

@@ -19,7 +19,7 @@ export function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+     
         <SettingsProvider>
           <ThemeProvider>
             <I18nProvider>
@@ -28,10 +28,12 @@ export function App() {
                   <QueryProvider>
                     <LoadingBarContainer>
                       <BrowserRouter basename={BASE_URL}>
+                       <AuthProvider>
                         <Toaster />
                         <ModulesProvider>
                           <AppRouting />
                         </ModulesProvider>
+</AuthProvider>
                       </BrowserRouter>
                     </LoadingBarContainer>
                   </QueryProvider>
@@ -40,7 +42,7 @@ export function App() {
             </I18nProvider>
           </ThemeProvider>
         </SettingsProvider>
-      </AuthProvider>
+
     </QueryClientProvider>
   );
 }

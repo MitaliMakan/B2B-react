@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useAuth } from '@/auth/context/auth-context';
+import { useAuth } from '@/auth/auth-provider';
 import { I18N_LANGUAGES } from '@/i18n/config';
 import { Language } from '@/i18n/types';
 import {

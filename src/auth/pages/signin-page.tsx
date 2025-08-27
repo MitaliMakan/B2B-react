@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { SupabaseAdapter } from '@/auth/adapters/supabase-adapter';
-import { useAuth } from '@/auth/context/auth-context';
+
+import { useAuth } from '@/auth/auth-provider';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Check, Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -74,75 +75,40 @@ export function SignInPage() {
   const form = useForm<SigninSchemaType>({
     resolver: zodResolver(getSigninSchema()),
     defaultValues: {
-      email: 'demo@kt.com',
-      password: 'demo123',
+      email: 'vipin@techstreet.in',
+      password: '123456789',
       rememberMe: true,
     },
   });
 
-  async function onSubmit(values: SigninSchemaType) {
-    try {
-      setIsProcessing(true);
-      setError(null);
+async function onSubmit(values: SigninSchemaType) {
+  try {
+    setIsProcessing(true);
+    setError(null);
 
-      console.log('Attempting to sign in with email:', values.email);
+    console.log("Attempting to sign in with:", values);
 
-      // Simple validation
-      if (!values.email.trim() || !values.password) {
-        setError('Email and password are required');
-        return;
-      }
+    const success = await login(values.email, values.password);
 
-      // Sign in using the auth context
-      await login(values.email, values.password);
-
-      // Get the 'next' parameter from URL if it exists
-      const nextPath = searchParams.get('next') || '/';
-
-      // Use navigate for navigation
-      navigate(nextPath);
-    } catch (err) {
-      console.error('Unexpected sign-in error:', err);
-      setError(
-        err instanceof Error
-          ? err.message
-          : 'An unexpected error occurred. Please try again.',
-      );
-    } finally {
-      setIsProcessing(false);
+    if (!success) {
+      setError("Invalid email or password.");
+      return;
     }
+
+    const nextPath = searchParams.get("next") || "/home";
+    navigate(nextPath);
+  } catch (err) {
+    console.error("Unexpected sign-in error:", err);
+    setError(
+      err instanceof Error ? err.message : "An unexpected error occurred."
+    );
+  } finally {
+    setIsProcessing(false);
   }
+}
 
-  // Handle Google Sign In with Supabase OAuth
-  const handleGoogleSignIn = async () => {
-    try {
-      setIsGoogleLoading(true);
-      setError(null);
 
-      // Get the next path if available
-      const nextPath = searchParams.get('next');
 
-      // Calculate the redirect URL
-      const redirectTo = nextPath
-        ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`
-        : `${window.location.origin}/auth/callback`;
-
-      console.log('Initiating Google sign-in with redirect:', redirectTo);
-
-      // Use our adapter to initiate the OAuth flow
-      await SupabaseAdapter.signInWithOAuth('google', { redirectTo });
-
-      // The browser will be redirected automatically
-    } catch (err) {
-      console.error('Google sign-in error:', err);
-      setError(
-        err instanceof Error
-          ? err.message
-          : 'Failed to sign in with Google. Please try again.',
-      );
-      setIsGoogleLoading(false);
-    }
-  };
 
   return (
     <Form {...form}>
@@ -157,7 +123,7 @@ export function SignInPage() {
           </p>
         </div>
 
-        <Alert appearance="light" size="sm" close={false}>
+        {/* <Alert appearance="light" size="sm" close={false}>
           <AlertIcon>
             <AlertCircle className="text-primary" />
           </AlertIcon>
@@ -165,9 +131,9 @@ export function SignInPage() {
             Use <strong>demo@kt.com</strong> username and {` `}
             <strong>demo123</strong> password for demo access.
           </AlertTitle>
-        </Alert>
+        </Alert> */}
 
-        <div className="flex flex-col gap-3.5">
+        {/* <div className="flex flex-col gap-3.5">
           <Button
             variant="outline"
             type="button"
@@ -185,16 +151,16 @@ export function SignInPage() {
               </>
             )}
           </Button>
-        </div>
+        </div> */}
 
-        <div className="relative py-1.5">
+        {/* <div className="relative py-1.5">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">or</span>
           </div>
-        </div>
+        </div> */}
 
         {error && (
           <Alert
