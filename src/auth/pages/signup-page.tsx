@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { useAuth } from '@/auth/context/auth-context';
+
+import { useAuth } from '@/auth/auth-provider';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, Check, Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
 import { Alert, AlertIcon, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Form,
   FormControl,
@@ -20,6 +21,7 @@ import { LoaderCircleIcon } from 'lucide-react';
 import { getSignupSchema, SignupSchemaType } from '../forms/signup-schema';
 
 export function SignUpPage() {
+    const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { register } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -34,24 +36,27 @@ export function SignUpPage() {
       email: '',
       password: '',
       confirmPassword: '',
-      firstName: '',
-      lastName: '',
+      fullName: '',
+      companyName: '',
+      designation: '',
       terms: false,
     },
   });
 
   async function onSubmit(values: SignupSchemaType) {
+
+ 
     try {
       setIsProcessing(true);
       setError(null);
 
-      // Register the user with Supabase
       await register(
         values.email,
         values.password,
         values.confirmPassword,
-        values.firstName,
-        values.lastName,
+        values.designation,
+        values.companyName,
+        values.fullName,
       );
 
       // Set success message and metadata
@@ -59,13 +64,14 @@ export function SignUpPage() {
         'Registration successful! Please check your email to confirm your account.',
       );
 
+    const nextPath = searchParams.get("next") || "/home";
+    navigate(nextPath);
+
       // After successful registration, you might want to update the user profile
       // with additional metadata (firstName, lastName, etc.)
 
       // Optionally redirect to login page after a delay
-      setTimeout(() => {
-        navigate('/auth/signin');
-      }, 3000);
+      
     } catch (err) {
       console.error('Registration error:', err);
       setError(
@@ -115,12 +121,12 @@ export function SignUpPage() {
 
         <FormField
           control={form.control}
-          name="firstName"
+          name="fullName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your first name" {...field} />
+                <Input placeholder="Enter your Full Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -129,17 +135,36 @@ export function SignUpPage() {
 
         <FormField
           control={form.control}
-          name="lastName"
+          name="companyName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel>Company Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your last name" {...field} />
+                <Input placeholder="Enter your Company name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+         <FormField
+          control={form.control}
+          name="designation"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Designation</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Your your desination"
+                 
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
 
         <FormField
           control={form.control}

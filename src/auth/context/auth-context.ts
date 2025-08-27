@@ -14,8 +14,9 @@ export const AuthContext = createContext<{
     email: string,
     password: string,
     password_confirmation: string,
-    firstName?: string,
-    lastName?: string,
+    fullName?: string,
+    designation?: string,
+    companyName?: string
   ) => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
   resetPassword: (

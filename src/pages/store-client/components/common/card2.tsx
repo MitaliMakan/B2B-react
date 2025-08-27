@@ -15,6 +15,7 @@ interface ICard2Props {
 }
 
 export function Card2({ badge, logo, title, total, star, label }: ICard2Props) {
+
   const { showCartSheet, showProductDetailsSheet } = useStoreClient();
 
   return (
@@ -34,7 +35,7 @@ export function Card2({ badge, logo, title, total, star, label }: ICard2Props) {
 
             <img
               onClick={() => showProductDetailsSheet('productid')}
-              src={toAbsoluteUrl(`/media/store/client/600x600/${logo}`)}
+              src={logo}
               className="h-[180px] shrink-0 cursor-pointer"
               alt="image"
             />
