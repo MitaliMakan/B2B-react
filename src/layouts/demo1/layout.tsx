@@ -56,12 +56,11 @@ export function Demo1Layout() {
 
   return (
     <>
-    hello
+    
       <Helmet>
         <title>{item?.title}</title>
       </Helmet>
-
-      {!isMobile && <Sidebar />}
+      {/* !isMobile && <Sidebar /> Sidebar hidden on mobile  */}
 
       <div className="wrapper flex grow flex-col">
         <Header />
