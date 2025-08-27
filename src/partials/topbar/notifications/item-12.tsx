@@ -44,7 +44,7 @@ export default function Item12() {
         </div>
 
         <Card className="shadow-none flex flex-col gap-2.5 p-3.5 rounded-lg">
-          <div className="font-semibold text-mono text-sm">Dashboards</div>
+          <div className="font-semibold text-mono text-sm">Dashboards11</div>
           <p className="font-medium text-secondary-foreground text-sm mb-1 leading-5">
             Hello everyone, question regarding the preparation of
             <br />

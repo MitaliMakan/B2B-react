@@ -25,6 +25,8 @@ export function MegaMenu() {
   const networkItem = MENU_MEGA[3];
   const authItem = MENU_MEGA[4];
   const storeItem = MENU_MEGA[5];
+  const documentItem = MENU_MEGA[6];
+  const contactItem = MENU_MEGA[7];
 
   const linkClass = `
     text-sm text-secondary-foreground font-medium 
@@ -49,9 +51,33 @@ export function MegaMenu() {
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Link
+              to={documentItem.path || '/'}
+              className={cn(linkClass)}
+              data-active={isActive(documentItem.path) || undefined}
+            >
+              {documentItem.title}
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Link
+              to={contactItem.path || '/'}
+              className={cn(linkClass)}
+              data-active={isActive(contactItem.path) || undefined}
+            >
+              {contactItem.title}
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
 
         {/* Public Profiles Item */}
-        <NavigationMenuItem>
+
+        {/* */}
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger
             className={cn(linkClass)}
             data-active={
@@ -63,10 +89,10 @@ export function MegaMenu() {
           <NavigationMenuContent className="p-0">
             <MegaMenuSubProfiles items={MENU_MEGA} />
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
 
         {/* My Account Item */}
-        <NavigationMenuItem>
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger
             className={cn(linkClass)}
             data-active={hasActiveChild(myAccountItem.children) || undefined}
@@ -76,10 +102,10 @@ export function MegaMenu() {
           <NavigationMenuContent className="p-0">
             <MegaMenuSubAccount items={MENU_MEGA} />
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
 
         {/* Network Item */}
-        <NavigationMenuItem>
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger
             className={cn(linkClass)}
             data-active={
@@ -91,10 +117,10 @@ export function MegaMenu() {
           <NavigationMenuContent className="p-0">
             <MegaMenuSubNetwork items={MENU_MEGA} />
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
 
         {/* Store Item */}
-        <NavigationMenuItem>
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger
             className={cn(linkClass)}
             data-active={hasActiveChild(storeItem.children || []) || undefined}
@@ -104,10 +130,10 @@ export function MegaMenu() {
           <NavigationMenuContent className="p-0">
             <MegaMenuSubStore items={MENU_MEGA} />
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
 
         {/* Authentication Item */}
-        <NavigationMenuItem>
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger
             className={cn(linkClass)}
             data-active={hasActiveChild(authItem.children) || undefined}
@@ -117,7 +143,7 @@ export function MegaMenu() {
           <NavigationMenuContent className="p-0">
             <MegaMenuSubAuth items={MENU_MEGA} />
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
       </NavigationMenuList>
     </NavigationMenu>
   );

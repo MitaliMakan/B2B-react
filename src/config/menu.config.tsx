@@ -450,7 +450,7 @@ export const MENU_SIDEBAR_CUSTOM: MenuConfig = [
 
 export const MENU_SIDEBAR_COMPACT: MenuConfig = [
   {
-    title: 'Dashboards',
+    title: 'Dashboards12',
     icon: LayoutGrid,
     path: '/',
   },
@@ -1192,6 +1192,8 @@ export const MENU_MEGA: MenuConfig = [
       },
     ],
   },
+  { title: 'Documents', path: '/' },
+  { title: 'Contact', path: '/' },
 ];
 
 export const MENU_MEGA_MOBILE: MenuConfig = [

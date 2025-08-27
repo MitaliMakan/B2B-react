@@ -8,7 +8,7 @@ export function NavbarMenu() {
   const items = useMemo(
     () => [
       {
-        title: 'Dashboards',
+        title: 'Dashboards1',
         path: '/',
         partial: '/',
       },
