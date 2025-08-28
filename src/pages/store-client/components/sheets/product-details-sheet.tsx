@@ -148,7 +148,7 @@ export function StoreClientProductDetailsSheet({
                 </Badge>
                 <img
                   src={product?.image}
-                  className="size-80"
+                  className="size-48"
                   alt="image"
                 />
                 <Card className="absolute items-center justify-center bg-light w-[75px] h-[45px] overflow-hidden rounded-sm bottom-4 right-4">
@@ -199,7 +199,7 @@ export function StoreClientProductDetailsSheet({
             </CardContent>
           </ScrollArea>
         </SheetBody>
-        <SheetFooter className="border-t py-3.5 px-5 border-border">
+        {/* <SheetFooter className="border-t py-3.5 px-5 border-border">
           <Button
             onClick={() => {
               if (productId) {
@@ -212,7 +212,7 @@ export function StoreClientProductDetailsSheet({
             <ShoppingCart />
             Add to Cart
           </Button>
-        </SheetFooter>
+        </SheetFooter> */}
       </SheetContent>
     </Sheet>
   );

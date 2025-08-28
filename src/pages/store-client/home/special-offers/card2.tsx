@@ -11,6 +11,7 @@ interface ICard2Props {
   title: string;
   total: string;
   logo: string;
+  id: string;
 }
 
 export function Card2({
@@ -19,8 +20,9 @@ export function Card2({
   title,
   total,
   logo,
+  id,
 }: ICard2Props) {
-  const { showCartSheet } = useStoreClient();
+const { showCartSheet, showProductDetailsSheet } = useStoreClient();
 
   return (
     <Card className={`h-full ${bgColor} ${borderColor}`}>
@@ -36,14 +38,14 @@ export function Card2({
           size="sm"
           variant="outline"
           className="mb-2.5"
-          onClick={showCartSheet}
+          onClick={() => showProductDetailsSheet(id !== undefined ? String(id) : 'productid')}
         >
-          <ShoppingCart /> Add to Card
+          <ShoppingCart /> View
         </Button>
         <span className="text-sm font-medium text-mono">{total}</span>
 
         <img
-          src={toAbsoluteUrl(`/media/store/client/600x600/${logo}`)}
+          src={logo}
           className="size-48"
           alt="image"
         />

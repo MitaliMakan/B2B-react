@@ -4,40 +4,42 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useStoreClient } from '../context';
 
 interface ICard1Item {
+  id: number;
   logo: string;
   brand: string;
 }
 type ICard1Items = Array<ICard1Item>;
 
-export function Card1() {
+export function Card1(categories: any) {
+  console.log('categories in card1', categories?.categories?.category
+);
   const { showProductDetailsSheet } = useStoreClient();
 
-  const items: ICard1Items = [
-    { logo: '1.png', brand: 'Nike' },
-    { logo: '2.png', brand: 'Adidas' },
-    { logo: '3.png', brand: 'Puma' },
-    { logo: '4.png', brand: 'New Balance' },
-    { logo: '5.png', brand: 'Converse' },
-    { logo: '6.png', brand: 'Reebok' },
-    { logo: '7.png', brand: 'Sketchers' },
-  ];
+  const items = categories?.categories?.category.map((cat: any) => ({
+    id: cat.id,
+    logo: cat.icon,
+    brand: cat.category_name
+,
+  })) as ICard1Items;
 
   const renderItem = (item: ICard1Item, index: number) => (
     <Card key={index}>
       <CardContent className="flex flex-col items-center justify-center pb-0">
+        <a href={'#cat'+item.id}>
         <div
-          onClick={() => showProductDetailsSheet('productid')}
+          // onClick={() => showProductDetailsSheet('productid')}
           className="hover:text-primary text-sm font-medium text-mono cursor-pointer"
         >
           {item.brand}
         </div>
 
         <img
-          onClick={() => showProductDetailsSheet('productid')}
-          src={toAbsoluteUrl(`/media/store/client/600x600/${item.logo}`)}
+          // onClick={() => showProductDetailsSheet('productid')}
+          src={item.logo}
           className="cursor-pointer h-[100px] shrink-0"
           alt="image"
         />
+        </a>
       </CardContent>
     </Card>
   );

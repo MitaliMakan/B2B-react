@@ -21,9 +21,10 @@ import { LoaderCircleIcon } from 'lucide-react';
 import { getSignupSchema, SignupSchemaType } from '../forms/signup-schema';
 
 export function SignUpPage() {
-    const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const [isActive,setFormActive]=useState(true);
+    const { register } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -61,11 +62,13 @@ export function SignUpPage() {
 
       // Set success message and metadata
       setSuccessMessage(
-        'Registration successful! Please check your email to confirm your account.',
+        'Registration successful! Your account request is under review now, once it is approved, we will notify you via an email.',
       );
+      setFormActive(false);
 
-    const nextPath = searchParams.get("next") || "/home";
-    navigate(nextPath);
+
+    // const nextPath = searchParams.get("next") || "/home";
+    // navigate(nextPath);
 
       // After successful registration, you might want to update the user profile
       // with additional metadata (firstName, lastName, etc.)
@@ -86,38 +89,43 @@ export function SignUpPage() {
 
   return (
     <Form {...form}>
-      <form
+      <img
+        src="https://grimanisystems.com/wp-content/uploads/2025/05/GS_2-scaled.png"
+        className="dark:hidden"
+        alt="image"
+      />
+      <div className="text-center space-y-1 pb-3">
+        <h1 className="text-2xl font-semibold tracking-tight">Sign Up</h1>
+        <p className="text-sm text-muted-foreground">
+          Create your account to get started
+        </p>
+      </div>
+
+      {error && (
+        <Alert
+          variant="destructive"
+          appearance="light"
+          onClose={() => setError(null)}
+        >
+          <AlertIcon>
+            <AlertCircle />
+          </AlertIcon>
+          <AlertTitle>{error}</AlertTitle>
+        </Alert>
+      )}
+
+      {successMessage && (
+        <Alert appearance="light" onClose={() => setSuccessMessage(null)}>
+          <AlertIcon>
+            <Check />
+          </AlertIcon>
+          <AlertTitle>{successMessage}</AlertTitle>
+        </Alert>
+      )}
+      <form 
         onSubmit={form.handleSubmit(onSubmit)}
-        className="block w-full space-y-5"
+        className={isActive ? 'block w-full space-y-5' : 'block w-full space-y-5 hidden'}
       >
-        <div className="text-center space-y-1 pb-3">
-          <h1 className="text-2xl font-semibold tracking-tight">Sign Up</h1>
-          <p className="text-sm text-muted-foreground">
-            Create your account to get started
-          </p>
-        </div>
-
-        {error && (
-          <Alert
-            variant="destructive"
-            appearance="light"
-            onClose={() => setError(null)}
-          >
-            <AlertIcon>
-              <AlertCircle />
-            </AlertIcon>
-            <AlertTitle>{error}</AlertTitle>
-          </Alert>
-        )}
-
-        {successMessage && (
-          <Alert appearance="light" onClose={() => setSuccessMessage(null)}>
-            <AlertIcon>
-              <Check />
-            </AlertIcon>
-            <AlertTitle>{successMessage}</AlertTitle>
-          </Alert>
-        )}
 
         <FormField
           control={form.control}

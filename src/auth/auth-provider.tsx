@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 interface User {
   id: string;
   email: string;
-  name: string;
+  username: string;
   avatar?: string;
 }
 
@@ -66,15 +66,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const data = await res.json();
       if (data.ErrorCode && data.ErrorCode !== 0) {
-        throw new Error(data.errorMessage || 'Login failed');
+
+           console.log("Login function returned:", data.ErrorMessage); 
+        throw new Error(data.ErrorMessage || 'Login failed');
       }
 
       // Assuming your backend returns something like:
       // { user: { id, email, name, avatar }, token: "..." }
       const loggedInUser: User = {
-        id: '1',
-        email: 'Mitali@gmail.com',
-        name: 'Mitali',
+        id: data?.userdata?.id,
+        email: data?.userdata?.email,
+        username: data?.userdata?.name,
         avatar: '/media/avatars/default.png',
       };
 

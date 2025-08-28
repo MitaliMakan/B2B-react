@@ -130,7 +130,7 @@ export function Header() {
             <StoreClientTopbar />
           ) : (
             <>
-              {!mobileMode && (
+              {/* {!mobileMode && (
                 <SearchDialog
                   trigger={
                     <Button
@@ -179,7 +179,7 @@ export function Header() {
                     <LayoutGrid className="size-4.5!" />
                   </Button>
                 }
-              />
+              /> */}
               <UserDropdownMenu
                 trigger={
                   <img

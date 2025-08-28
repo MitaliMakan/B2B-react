@@ -91,14 +91,14 @@ async function onSubmit(values: SigninSchemaType) {
     const success = await login(values.email, values.password);
 
     if (!success) {
-      setError("Invalid email or password.");
+      setError("Invalid email or password or your account is not approved yet.");
       return;
     }
 
     const nextPath = searchParams.get("next") || "/home";
     navigate(nextPath);
-  } catch (err) {
-    console.error("Unexpected sign-in error:", err);
+  } catch (err:any) {
+    console.error("Unexpected sign-in error:", err.message);
     setError(
       err instanceof Error ? err.message : "An unexpected error occurred."
     );
@@ -116,6 +116,11 @@ async function onSubmit(values: SigninSchemaType) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="block w-full space-y-5"
       >
+        <img
+          src="https://grimanisystems.com/wp-content/uploads/2025/05/GS_2-scaled.png"
+          className="dark:hidden"
+          alt="image"
+        />
         <div className="text-center space-y-1 pb-3">
           <h1 className="text-2xl font-semibold tracking-tight">Sign In</h1>
           <p className="text-sm text-muted-foreground">

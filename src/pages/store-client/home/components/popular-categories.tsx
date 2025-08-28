@@ -74,13 +74,13 @@ export function PopularCategories({ storeId }: { storeId: number }) {
   return (
     <div className="space-y-6">
       {categories.map((cat) => (
-        <div key={cat.id} className="space-y-4">
+        <div key={cat.id} className="space-y-4" id={'cat'+cat.id}>
           <div className="flex items-center justify-between gap-4">
             <span className="text-lg font-medium text-mono">{cat?.category_name}</span>
             <Button mode="link" asChild>
-              <Link to={`/category/${cat.id}`} className="text-xs">
+              {/* <Link to={`/category/${cat.id}`} className="text-xs">
                 See All <ChevronRight />
-              </Link>
+              </Link> */}
             </Button>
           </div>
 

@@ -87,15 +87,15 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
               </a>
             </div>
           </div>
-          <Badge variant="primary" appearance="light" size="sm">
+          {/* <Badge variant="primary" appearance="light" size="sm">
             Pro
-          </Badge>
+          </Badge> */}
         </div>
 
-        <DropdownMenuSeparator />
+        {/* <DropdownMenuSeparator /> */}
 
         {/* Menu Items */}
-        <DropdownMenuItem asChild>
+        {/* <DropdownMenuItem asChild>
           <Link
             to="/public-profile/profiles/default"
             className="flex items-center gap-2"
@@ -112,10 +112,10 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
             <UserCircle />
             My Profile
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
         {/* My Account Submenu */}
-        <DropdownMenuSub>
+        {/* <DropdownMenuSub>
           <DropdownMenuSubTrigger className="flex items-center gap-2">
             <Settings />
             My Account
@@ -186,10 +186,10 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
             <SquareCode />
             Dev Forum
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
         {/* Language Submenu with Radio Group */}
-        <DropdownMenuSub>
+        {/* <DropdownMenuSub>
           <DropdownMenuSubTrigger className="flex items-center gap-2 [&_[data-slot=dropdown-menu-sub-trigger-indicator]]:hidden hover:[&_[data-slot=badge]]:border-input data-[state=open]:[&_[data-slot=badge]]:border-input">
             <Globe />
             <span className="flex items-center justify-between gap-2 grow relative">
@@ -233,7 +233,7 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
               ))}
             </DropdownMenuRadioGroup>
           </DropdownMenuSubContent>
-        </DropdownMenuSub>
+        </DropdownMenuSub> */}
 
         <DropdownMenuSeparator />
 

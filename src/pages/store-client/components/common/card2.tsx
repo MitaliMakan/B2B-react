@@ -74,9 +74,10 @@ export function Card2({ badge, logo, title, total, star, label, id }: ICard2Prop
               size="sm"
               variant="outline"
               className="ms-1"
-              onClick={showCartSheet}
+              // onClick={showCartSheet}
+              onClick={() => showProductDetailsSheet(id !== undefined ? String(id) : 'productid')}
             >
-              <ShoppingCart /> Add
+              <ShoppingCart /> View
             </Button>
           </div>
         </div>
