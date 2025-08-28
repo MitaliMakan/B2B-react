@@ -17,8 +17,8 @@ export function AccountGetStartedPage() {
 
   return (
     <Fragment>
-      <PageNavbar />
-      {settings?.layout === 'demo1' && (
+      {/* <PageNavbar /> */}
+      {/* {settings?.layout === 'demo1' && (
         <Container>
           <Toolbar>
             <ToolbarHeading>
@@ -43,7 +43,7 @@ export function AccountGetStartedPage() {
             </ToolbarHeading>
           </Toolbar>
         </Container>
-      )}
+      )} */}
       <Container>
         <AccountGetStartedContent />
       </Container>

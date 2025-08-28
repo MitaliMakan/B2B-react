@@ -36,12 +36,12 @@ export function AccountInviteAFriendContent() {
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 lg:gap-7.5">
-      <div className="col-span-2">
+      <div className="col-span-2 mt-12">
         <div className="flex flex-col gap-5 lg:gap-7.5">
           <InvitePeople />
-          <Invites />
-          <InviteWithLink />
-          <Engage
+          {/* <Invites /> */}
+          {/* <InviteWithLink /> */}
+          {/* <Engage
             title="Contact Support"
             description="Need assistance? Contact our support team for prompt, personalized help your queries & concerns."
             image={
@@ -62,14 +62,14 @@ export function AccountInviteAFriendContent() {
               title: 'Contact Support',
               url: 'https://keenthemes.com/contact',
             }}
-          />
+          /> */}
         </div>
       </div>
-      <div className="col-span-1">
+      {/* <div className="col-span-1">
         <div className="flex flex-col gap-5 lg:gap-7.5">
           <HighlightedPosts posts={posts} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

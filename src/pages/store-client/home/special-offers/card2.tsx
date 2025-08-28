@@ -29,11 +29,11 @@ const { showCartSheet, showProductDetailsSheet } = useStoreClient();
       <CardContent className="flex flex-col items-center justify-center px-5 pb-0">
         <div className="mb-3.5">
           <Badge size="sm" variant="destructive" className="uppercase">
-            save 25%
+            save 20%
           </Badge>
         </div>
 
-        <span className="text-base font-medium text-mono mb-3">{title}</span>
+        <span className="uppercase text-base font-medium text-mono mb-3">{title}</span>
         <Button
           size="sm"
           variant="outline"

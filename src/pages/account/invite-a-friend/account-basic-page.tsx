@@ -18,7 +18,7 @@ export function AccountInviteAFriendPage() {
 
   return (
     <Fragment>
-      <PageNavbar />
+      {/* <PageNavbar />
       {settings?.layout === 'demo1' && (
         <Container>
           <Toolbar>
@@ -35,7 +35,7 @@ export function AccountInviteAFriendPage() {
             </ToolbarActions>
           </Toolbar>
         </Container>
-      )}
+      )} */}
       <Container>
         <AccountInviteAFriendContent />
       </Container>

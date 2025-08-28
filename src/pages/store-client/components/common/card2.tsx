@@ -10,12 +10,14 @@ interface ICard2Props {
   logo: string;
   title: string;
   total: string;
+  mrp: string;
   star: string;
   label?: string;
+  shortDesc?: string;
   id?: number
 }
 
-export function Card2({ badge, logo, title, total, star, label, id }: ICard2Props) {
+export function Card2({ badge, logo, title, total,mrp, star, shortDesc, label, id }: ICard2Props) {
 
   const { showCartSheet, showProductDetailsSheet } = useStoreClient();
 
@@ -44,9 +46,10 @@ export function Card2({ badge, logo, title, total, star, label, id }: ICard2Prop
 
           <div
            onClick={() => showProductDetailsSheet(id !== undefined ? String(id) : 'productid')}
-            className="hover:text-primary text-sm font-medium text-mono px-2.5 leading-5.5 block cursor-pointer"
+            className=" hover:text-primary text-sm font-medium text-mono px-2.5 leading-5.5 block cursor-pointer"
           >
-            {title}
+            <span className="uppercase">{title}</span>
+            <span className="text-xs font-normal text-secondary-foreground block">{shortDesc}</span>
           </div>
         </div>
 
@@ -60,13 +63,13 @@ export function Card2({ badge, logo, title, total, star, label, id }: ICard2Prop
             <Star
               className="text-white -mt-0.5"
               style={{ fill: 'currentColor' }}
-            />{' '}
+            />{'5'}
             {star}
           </Badge>
 
           <div className="flex items-center flex-wrap gap-1.5">
             <span className="text-xs font-normal text-secondary-foreground line-through pt-[1px]">
-              {label}
+              ${mrp}
             </span>
             <span className="text-sm font-medium text-mono">${total}</span>
 

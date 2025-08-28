@@ -11,6 +11,8 @@ interface Category {
 }
 
 interface Product {
+  short_description: string | undefined;
+  mrp: string;
   logo: string;
   title: string;
   total: string;
@@ -89,9 +91,11 @@ export function PopularCategories({ storeId }: { storeId: number }) {
               <Card2
                 key={index}
                 id={item.product_id}
+                shortDesc={item.short_description}
                 logo={item.product_image}
                 star={item.star}
                 title={item?.product_name}
+                mrp={item.mrp}
                 total={item.discount_price}
               />
             ))}

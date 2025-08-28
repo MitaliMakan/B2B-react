@@ -14,11 +14,11 @@ let id=3;
         <div className="flex flex-col">
           <div className="mb-3">
             <Badge size="sm" variant="destructive" className="uppercase">
-              save 25%
+              save 16%
             </Badge>
           </div>
 
-          <h3 className="text-[26px] font-semibold text-mono mb-1">
+          <h3 className="uppercase text-[26px] font-semibold text-mono mb-1">
             Rixos-l
           </h3>
 

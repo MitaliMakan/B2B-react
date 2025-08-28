@@ -1192,8 +1192,8 @@ export const MENU_MEGA: MenuConfig = [
       },
     ],
   },
-  { title: 'Documents', path: '/' },
-  { title: 'Contact', path: '/' },
+  { title: 'Documents', path: '/documents' },
+  { title: 'Contact Us', path: '/contact-us' },
 ];
 
 export const MENU_MEGA_MOBILE: MenuConfig = [

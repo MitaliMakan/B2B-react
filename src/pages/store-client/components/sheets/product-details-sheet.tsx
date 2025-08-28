@@ -109,7 +109,7 @@ export function StoreClientProductDetailsSheet({
           title: data.product_name,
 
           description: data.long_description,
-          price: data.price,
+          price: data.mrp,
           original_price: data.discount_price,
           rating: data.rating,
           stock: data.stock,
@@ -139,13 +139,13 @@ export function StoreClientProductDetailsSheet({
           <ScrollArea className="h-[calc(100dvh-11.75rem)] pe-3 -me-3">
             <CardContent className="flex flex-col space-y-3 p-5 p-0">
               <Card className="relative items-center justify-center bg-accent/50 mb-6.5 h-[280px]">
-                <Badge
+                {/* <Badge
                   size="sm"
                   variant="destructive"
                   className="absolute top-4 right-4 uppercase"
                 >
                   save 40%
-                </Badge>
+                </Badge> */}
                 <img
                   src={product?.image}
                   className="size-48"
@@ -165,7 +165,7 @@ export function StoreClientProductDetailsSheet({
                 </Card>
               </Card>
 
-              <span className="text-base font-medium text-mono">
+              <span className="text-base font-medium text-mono uppercase">
                {product?.title}
               </span>
               <div dangerouslySetInnerHTML={{ __html: product?.description ?? '' }} className="text-sm font-normal text-foreground block mb-7"/>    
@@ -191,7 +191,7 @@ export function StoreClientProductDetailsSheet({
 
               <div className="flex items-center justify-end gap-2">
                 <span className="text-base font-normal text-secondary-foreground line-through">
-                  {product?.price}
+                  ${product?.price}
                 </span>
 
                 <span className="text-lg font-medium text-mono">${product?.original_price}</span>

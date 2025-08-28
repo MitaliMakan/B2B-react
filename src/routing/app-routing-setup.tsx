@@ -341,6 +341,12 @@ export function AppRoutingSetup() {
             element={<AuthAccountDeactivatedPage />}
           />
           <Route path="/home" element={<StoreClientPage />} />
+          <Route path="/documents" element={<AccountGetStartedPage />} />
+          <Route
+            path="/contact-us"
+            element={<AccountInviteAFriendPage />}
+          />
+          
           <Route
             path="/store-client/search-results-grid"
             element={<SearchResultsGridPage />}

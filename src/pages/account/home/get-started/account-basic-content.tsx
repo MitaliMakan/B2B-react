@@ -20,69 +20,69 @@ export function AccountGetStartedContent() {
   const items: IOptionsItems = [
     {
       icon: IdCard,
-      title: 'Personal info',
-      desc: "We're open to partnerships, guest posts, promo bannersand more.",
-      path: '/account/members/team-info',
+      title: 'Document 1',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: ShieldCheck,
-      title: 'Login & Security',
-      desc: 'Safeguarding your information with strong authentication measures.',
-      path: '/account/security/security-log',
+      title: 'Document 2',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: FileText,
-      title: 'Billing & Payments',
-      desc: 'Simplify payments today with secure, user-friendly transaction processes.',
-      path: 'account/billing/basic',
+      title: 'Document 3',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: Bell,
-      title: 'Notifications',
-      desc: 'Keep updated with important notices and event reminders.',
-      path: '/account/notifications',
+      title: 'Document 4',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: Boxes,
-      title: 'Integrations',
-      desc: 'Enhance Workflows with Advanced Integrations.',
-      path: '/account/integrations',
+      title: 'Document 5',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: Users,
-      title: 'Members, Teams & Roles',
-      desc: 'Efficient management of members, teams, and roles.',
-      path: '/account/members/roles',
+      title: 'Document 6',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: KeySquare,
-      title: 'API Keys',
-      desc: 'Secure and manage Your API Keys effectively and efficiently.',
-      path: '/account/api-keys',
+      title: 'Document 7',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: MousePointerSquareDashed,
-      title: 'Appearance',
-      desc: 'Transforming your online presence with flawless appearance.',
-      path: '/account/appearance',
+      title: 'Document 8',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: MonitorSmartphone,
-      title: 'Devices',
-      desc: 'Stay ahead with the latest devices and innovations news',
-      path: '#',
+      title: 'Document 9',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
     {
       icon: Palette,
-      title: 'Brand',
-      desc: 'Trending brand designs, identities, and logos.',
-      path: '/account/invite-a-friend',
+      title: 'Document 10',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '#',
     },
     {
       icon: LineChart,
-      title: 'Activity',
-      desc: 'Central Hub for Personal Customization.',
-      path: '/account/activity',
+      title: 'Document 11',
+      desc: "Document management made easy: Upload, organize, and access all your files in one secure place.",
+      path: '/documents',
     },
   ];
 
@@ -91,7 +91,7 @@ export function AccountGetStartedContent() {
       <Options items={items} dropdown={true} />
       <div className="flex grow justify-center pt-5 lg:pt-7.5">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="/account/members/team-info">More Account Options</Link>
+          <Link to="/home">Home</Link>
         </Button>
       </div>
     </Fragment>
