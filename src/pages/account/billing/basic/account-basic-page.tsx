@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { useParams } from 'react-router-dom';
 import { PageNavbar } from '@/pages/account';
 import {
   Toolbar,
@@ -13,12 +14,15 @@ import { Container } from '@/components/common/container';
 import { AccountBasicContent } from '.';
 
 export function AccountBasicPage() {
+
+  const { id } = useParams(); 
+  console.log('id',id);
   const { settings } = useSettings();
 
   return (
     <Fragment>
-      <PageNavbar />
-      {settings?.layout === 'demo1' && (
+      {/* <PageNavbar /> */}
+      {/* {settings?.layout === 'demo1' && (
         <Container>
           <Toolbar>
             <ToolbarHeading>
@@ -32,7 +36,7 @@ export function AccountBasicPage() {
             </ToolbarActions>
           </Toolbar>
         </Container>
-      )}
+      )} */}
       <Container>
         <AccountBasicContent />
       </Container>

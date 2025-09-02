@@ -68,9 +68,9 @@ export function Card2({ badge, logo, title, total,mrp, star, shortDesc, label, i
           </Badge>
 
           <div className="flex items-center flex-wrap gap-1.5">
-            <span className="text-xs font-normal text-secondary-foreground line-through pt-[1px]">
+            {/* <span className="text-xs font-normal text-secondary-foreground line-through pt-[1px]">
               ${mrp}
-            </span>
+            </span> */}
             <span className="text-sm font-medium text-mono">${total}</span>
 
             <Button

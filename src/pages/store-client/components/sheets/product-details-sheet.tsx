@@ -190,9 +190,9 @@ export function StoreClientProductDetailsSheet({
               </div>
 
               <div className="flex items-center justify-end gap-2">
-                <span className="text-base font-normal text-secondary-foreground line-through">
+                {/* <span className="text-base font-normal text-secondary-foreground line-through">
                   ${product?.price}
-                </span>
+                </span> */}
 
                 <span className="text-lg font-medium text-mono">${product?.original_price}</span>
               </div>

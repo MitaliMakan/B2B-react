@@ -342,6 +342,7 @@ export function AppRoutingSetup() {
           />
           <Route path="/home" element={<StoreClientPage />} />
           <Route path="/documents" element={<AccountGetStartedPage />} />
+          <Route path="/documents/:id" element={<AccountBasicPage />} />
           <Route
             path="/contact-us"
             element={<AccountInviteAFriendPage />}
