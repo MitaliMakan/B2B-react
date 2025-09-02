@@ -1,14 +1,91 @@
-import { useState } from 'react';
+import { useState,useRef } from 'react';
 import { Search as SearchInput } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import proImage from "../../../../../public/media/app/apple-touch-icon.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useStoreClient } from '../../components/context';
 
 export function Search() {
+  const { showCartSheet, showProductDetailsSheet } = useStoreClient();
+
+
+  const ref = useRef('');
+  const [list, setList] = useState('')
+  const [catList, setCatList] = useState('')
+  const [showList, setShowList] = useState(false);
+  const [trending,setTrending] = useState(false)
   const [searchInput, setSearchInput] = useState('');
+  const navigate = useNavigate();
+
+  const getSearchProducts = async (searchTitle: string) => {
+
+    const obj = {
+      search: searchTitle,
+      store_id: 1,
+    }
+    setSearchInput(searchTitle);
+    const res= await axios.post(
+          `https://grimanisystems.salesleader.in/api/v1/product`,obj,{
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("auth-token")}`, // example auth token
+      "Content-Type": "application/json",      
+     },
+    });
+    if (res && res?.data?.ErrorCode === 0 && res?.data?.ItemResponse) {
+      setList(res?.data?.ItemResponse?.data)
+      // setCatList(res?.data?.ItemResponse?.data)
+
+      if (searchTitle !== '') {
+        setShowList(true)
+      }
+      else {
+        setShowList(false)
+      }
+      setTrending(false)
+    }
+  }
+  
+  interface ProductData {
+    item_slug: string;
+    product_id: number | string;
+    product_name?: string;
+    product_image?: string;
+    // add other fields as needed
+  }
+
+  const gotoProductPage = (data: ProductData) => {
+    // let name = data.product_name.replace(/ /g, "-");
+    let name = data.item_slug.replace(/ /g, "-");
+    name = name.replace(/\//g, "-");
+    navigate(`/product/${name}/${data.product_id}`);
+    setShowList(false)
+  }
+
+
+  const gotoCategoryPage = (data: { category_slug: string; parent_id?: number | string; [key: string]: any }) => {
+    // let name = data.product_name.replace(/ /g, "-");
+    let name = data.category_slug.replace(/ /g, "-");
+     name = name.replace(/\//g, "-");
+    navigate(`/product-category/${name}/:id`);
+    setShowList(false)
+    window.location.reload();
+  }
+
+  const gotoSubCategoryPage = (data: { category_slug: string; parent_category_slug: string; [key: string]: any }) => {
+    // let name = data.product_name.replace(/ /g, "-");
+    let name = data.category_slug.replace(/ /g, "-");
+    name = name.replace(/\//g, "-");
+    navigate(`/product-category/${data.parent_category_slug}/${name}`);
+    setShowList(false)
+    window.location.reload();
+  }
 
   return (
-    <Card className="shadow-none relative h-[140px] bg-cover bg-no-repeat light:bg-accent/50 mb-3.5 overflow-hidden">
+    <>
+     <Card className="relative shadow-none relative h-[140px] bg-cover bg-no-repeat light:bg-accent/50 mb-3.5">
       <div className="relative flex items-center max-w-[420px] w-[90%] mx-auto top-1/2 -translate-y-1/2 z-1">
         <SearchInput
           className="absolute start-4 text-muted-foreground"
@@ -19,15 +96,69 @@ export function Search() {
           variant="lg"
           id="search-input"
           value={searchInput}
-          placeholder="Search shop"
-          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="Search Products"
+          // onFocus={(e) => {getTrendingProdu(e.target.value)}}
+          onChange={(e) => { getSearchProducts(e.target.value) }}
           className="ps-9 pe-10 w-full"
         />
 
-        <Badge className="absolute end-3 gap-1" variant="outline" size="sm">
-          ⌘ K
+        <Badge className="absolute end-3 gap-1" variant="outline" size="sm" onClick={() => { setShowList(false); setSearchInput(''); setTrending(true); getSearchProducts('') }}>
+          X
         </Badge>
       </div>
+      <div className="items-center mx-auto max-w-[420px] w-[90%] ">
+        {showList ? <div className="suggestion_Container py-3" ref={ref}>
+                  <div className="heading font_13 text-black ms-2 mb-1 font_sub_heading">{trending ? 'Trending' : 'Searched Product List' }</div>
+
+                  { catList?.length ? catList?.map((value, index) => {
+                    return <div className="product_list bg-white text-black flex align-items-center" onClick={() => { value.parent_id ? gotoSubCategoryPage(value) : gotoCategoryPage(value) }} key={index} >
+                       
+                      <div className="pro_img mx-2 mb-1">
+                        <img src={value.icon ? value.icon : proImage} alt=""  />
+                      </div>
+                      <p className="product_name font_13 m-0 mb-1 text-secondary cursor-pointer font_paragraph">{value.category_name}</p>
+                    </div>
+                  }) : 
+                    ( list?.length ?"":
+                      <div className="search_suggetion_product mt-3">
+                        <div className="m-3 rounded bg_green text-red-200">
+                            
+                            <p 
+                              className="m-0 px-3 py-2 font_paragraph cursor-pointer"
+                              onClick={()=>{props?.setProductSuggestion(true)}}
+                            >
+                             Did n't find your product.                    
+                            </p>
+                        </div>
+                      </div>
+                    )
+                  }
+
+                  { list?.length ? list?.map((value, index) => {
+                    {console.log('value',value?.product_name)}
+                    return <div className="product_list bg-white text-black flex align-items-center" onClick={() => showProductDetailsSheet(value?.product_id !== undefined ? String(value?.product_id) : 'productid')} key={index} >
+                      <div className="pro_img mx-2 mb-1">
+                        <img src={value.product_image ? value.product_image : proImage} alt=""  />
+                      </div>
+                      <p className="product_name text-black font_13 m-0 mb-1  cursor-pointer font_paragraph">{value.product_name}</p>
+                    </div>
+                  }) : 
+                  ""
+                  // <div className="search_suggetion_product mt-3">
+                  //   <div className="m-3 rounded bg_green text-white">
+                  //       <p 
+                  //         className="m-0 px-3 py-2 font_paragraph cursor-pointer"
+                  //         onClick={()=>{props.setProductSuggestion(true)}}
+                  //       >
+                  //         Didn't find your product click to suggest.
+                  //       </p>
+                  //   </div>
+                  // </div>
+
+                  }
+
+                </div> : null}
+    </div>
       <div className="absolute top-1/2 start-1/2 -translate-1/2 w-[90%] text-white dark:text-black/30">
         <svg
           viewBox="0 0 1140 140"
@@ -429,5 +560,38 @@ export function Search() {
         </svg>
       </div>
     </Card>
+    <style>{`
+            .suggestion_Container{
+              max-height:400px;
+              overflow-y:scroll;
+              z-index:1;
+              background:#F8F8F8;
+              top:38%;
+              border: 1px solid #eee;
+              margin-top: 3%;
+              position: absolute;
+              width: 33%;
+            }
+
+         
+
+
+          .suggestion_Container .pro_img{
+            height: 30px !important;
+            width: 35px !important;
+          }
+          .suggestion_Container .product_list{
+            height:45px;
+          }
+
+          .suggestion_Container .product_list:hover{
+            background-color: #F6F6F6 !important;
+            cursor:pointer;
+          }
+       
+        `}
+      </style>
+    </>
+
   );
 }

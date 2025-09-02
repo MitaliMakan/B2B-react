@@ -5,7 +5,9 @@ import {
 import { BadgePercent, Package2, ReceiptText } from 'lucide-react';
 import { Details, Invoicing, PaymentMethods, Plan } from './components';
 
-export function AccountBasicContent() {
+export function AccountBasicContent(pageid:any) {
+  console.log('pageid',pageid);
+
   const posts: HighlightedPostsItems = [
     {
       icon: BadgePercent,
@@ -37,7 +39,7 @@ export function AccountBasicContent() {
           {/* <Plan /> */}
           {/* <PaymentMethods /> */}
           {/* <Details /> */}
-          <Invoicing />
+          <Invoicing pageid={pageid}/>
         </div>
       </div>
       {/* <div className="col-span-1">

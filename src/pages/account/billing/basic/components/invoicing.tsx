@@ -17,6 +17,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface IInvoicingItem {
   number: string;
@@ -25,68 +27,111 @@ interface IInvoicingItem {
   label: string;
   color: 'warning' | 'success' | 'destructive';
 }
-type IInvoicingItems = Array<IInvoicingItem>;
+interface IDocumentItem {
+  title: string;
+  description: string;
+  path: string;
+}
+const Invoicing = (data:any) => {
+  console.log('pageid in invoicing',data?.pageid);
+  
+    
+    type DocumentItemList = IDocumentItem[];
+    
+    const [tables, setItems] = useState<DocumentItemList>([]);
+    
+    const [loading, setLoading] = useState(true);
+    
 
-const Invoicing = () => {
-  const tables: IInvoicingItems = [
-    {
-      number: 'Invoice-2024-xd912c',
-      date: '6 Aug, 2024',
-      amount: '24.00',
-      label: 'Upcoming',
-      color: 'warning',
-    },
-    {
-      number: 'Invoice-2024-rq857m',
-      date: '17 Jun, 2024',
-      amount: '29.99',
-      label: 'Paid',
-      color: 'success',
-    },
-    {
-      number: 'Invoice-2024-jk563z',
-      date: '30 Apr, 2024',
-      amount: '24.00',
-      label: 'Paid',
-      color: 'success',
-    },
-    {
-      number: 'Invoice-2024-hg234x',
-      date: '21 Apr, 2024',
-      amount: '6.59',
-      label: 'Declined',
-      color: 'destructive',
-    },
-    {
-      number: 'Invoice-2024-lp098y',
-      date: '14 mar, 2024',
-      amount: '24.00',
-      label: 'Paid',
-      color: 'success',
-    },
-  ];
 
-  const renderItem = (table: IInvoicingItem, index: number) => {
+   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.post(
+          `https://grimanisystems.salesleader.in/api/v1/folder-tag/list`,
+          { pageid: data?.pageid },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("auth-token")}`, // example auth token
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const catList = res.data?.ItemResponse || [];
+        // Map categories to items array
+        const mappedItems = catList.map((cat: any) => ({
+          title: cat.title,
+          description: cat.description,
+          path: cat.documentUrl,
+        }));
+        setItems(mappedItems);
+
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  },[]);
+
+
+
+
+  // const tables: IInvoicingItems = [
+  //   {
+  //     number: 'Invoice-2024-xd912c',
+  //     date: '6 Aug, 2024',
+  //     amount: '24.00',
+  //     label: 'Upcoming',
+  //     color: 'warning',
+  //   },
+  //   {
+  //     number: 'Invoice-2024-rq857m',
+  //     date: '17 Jun, 2024',
+  //     amount: '29.99',
+  //     label: 'Paid',
+  //     color: 'success',
+  //   },
+  //   {
+  //     number: 'Invoice-2024-jk563z',
+  //     date: '30 Apr, 2024',
+  //     amount: '24.00',
+  //     label: 'Paid',
+  //     color: 'success',
+  //   },
+  //   {
+  //     number: 'Invoice-2024-hg234x',
+  //     date: '21 Apr, 2024',
+  //     amount: '6.59',
+  //     label: 'Declined',
+  //     color: 'destructive',
+  //   },
+  //   {
+  //     number: 'Invoice-2024-lp098y',
+  //     date: '14 mar, 2024',
+  //     amount: '24.00',
+  //     label: 'Paid',
+  //     color: 'success',
+  //   },
+  // ];
+
+  const renderItem = (table: DocumentItemList, index: number) => {
     return (
       <TableRow key={index}>
         <TableCell className="text-sm text-foreground font-normal">
-          {table.number}
+          {table?.title}
         </TableCell>
-        <TableCell className="lg:text-end">
-          <Badge variant={table.color} appearance="light">
-            {table.label}
-          </Badge>
-        </TableCell>
-        <TableCell className="text-sm text-foreground font-normal lg:text-end">
-          {table.date}
-        </TableCell>
-        <TableCell className="text-sm text-secondary-foreground font-normal lg:text-end">
-          ${table.amount}
+        <TableCell className="text-sm text-foreground font-normal">
+          {table?.description}
         </TableCell>
         <TableCell>
+          <Link to={table?.path} target="_blank" download>
           <Button variant="ghost" mode="icon">
             <Download className="text-blue-500" />
           </Button>
+          </Link>
         </TableCell>
       </TableRow>
     );
@@ -95,21 +140,19 @@ const Invoicing = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Billing and Invoicing</CardTitle>
-        <Button variant="outline">
+        <CardTitle>Document List</CardTitle>
+        {/* <Button variant="outline">
           <CloudDownload size={16} />
           Download All
-        </Button>
+        </Button> */}
       </CardHeader>
       <CardContent className="kt-scrollable-x-auto p-0">
         <Table>
           <TableHeader>
             <TableRow className="bg-accent/60">
-              <TableHead className="min-w-52 h-10">Invoice</TableHead>
-              <TableHead className="min-w-24 text-end h-10">Status</TableHead>
-              <TableHead className="min-w-32 text-end h-10">Date</TableHead>
-              <TableHead className="min-w-20 text-end h-10">Amount</TableHead>
-              <TableHead className="w-8 h-10"></TableHead>
+              <TableHead className="min-w-52 h-10">Document Name</TableHead>
+              <TableHead className="min-w-24 h-10">Description</TableHead>
+              <TableHead className="w-8 h-10">Download</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -121,11 +164,11 @@ const Invoicing = () => {
       </CardContent>
       <CardFooter className="justify-center">
         <Button mode="link" underlined="dashed" asChild>
-          <Link to="/account/billing/history">View all Payments</Link>
+          <Link to="/documents/">View all Documents</Link>
         </Button>
       </CardFooter>
     </Card>
   );
 };
 
-export { Invoicing, type IInvoicingItem, type IInvoicingItems };
+export { Invoicing, type IInvoicingItem, type IDocumentItem  };

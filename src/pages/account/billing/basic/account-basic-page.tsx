@@ -16,7 +16,6 @@ import { AccountBasicContent } from '.';
 export function AccountBasicPage() {
 
   const { id } = useParams(); 
-  console.log('id',id);
   const { settings } = useSettings();
 
   return (
@@ -38,7 +37,7 @@ export function AccountBasicPage() {
         </Container>
       )} */}
       <Container>
-        <AccountBasicContent />
+        <AccountBasicContent pageid={id}/>
       </Container>
     </Fragment>
   );

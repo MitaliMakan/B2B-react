@@ -77,6 +77,11 @@ export function ResetPasswordPage() {
     <div className="max-w-md mx-auto">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          <img
+            src="https://grimanisystems.com/wp-content/uploads/2025/05/GS_2-scaled.png"
+            className="dark:hidden"
+            alt="image"
+          />
           <div className="text-center space-y-2">
             <h1 className="text-2xl font-bold tracking-tight">
               Reset Password
