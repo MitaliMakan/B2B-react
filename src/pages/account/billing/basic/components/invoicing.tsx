@@ -156,9 +156,22 @@ const Invoicing = (data:any) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tables.map((table, index) => {
-              return renderItem(table, index);
-            })}
+
+            { tables?.length > 0 ? 
+              tables.map((table, index) => {
+                return renderItem(table, index);
+              })
+              :
+              <TableRow >
+                <TableCell colSpan={3} className="text-center p-4 h-10">
+                  No Documents Found
+                </TableCell>
+              </TableRow>              
+            }
+
+
+
+
           </TableBody>
         </Table>
       </CardContent>

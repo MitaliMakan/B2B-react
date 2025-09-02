@@ -124,7 +124,7 @@ export function AccountGetStartedContent() {
   //   },
   // ];
 
-    if (loading) return <div>Loading categories...</div>;
+    if (loading) return <div>Loading Document Directories...</div>;
 
   return (
     <Fragment>
